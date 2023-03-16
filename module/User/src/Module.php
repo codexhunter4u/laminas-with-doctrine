@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace User;
 
-
 use User\Controller\UserController;
 use User\Controller\UserControllerFactory;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
