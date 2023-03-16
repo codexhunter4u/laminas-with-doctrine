@@ -1,0 +1,97 @@
+<?php
+$form = $this->form;
+$form->get('firstName')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Enter first name'
+]);
+
+$form->get('lastName')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Enter last name'
+]);
+
+$form->get('email')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Enter eamil'
+]);
+
+$form->get('contact')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Enter contact no'
+]);
+
+$form->get('gender')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('profilePhoto')->setAttributes([
+    'class' => 'form-control',
+]);
+
+// On edit, If file is not selected then keep older value as it is
+$form->get('uploadedFile')->setAttributes([
+    'class' => 'form-control',
+    'value' => $user->getProfilePhoto(),
+]);
+$form->get('submit')->setAttributes(['class'=>'btn btn-primary'])->setValue('Save');;
+$form->setAttribute('action', $this->url('user', [
+    'action' => 'edit',
+    'id'     => $user->getId(),
+]));
+$form->prepare();
+
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <?= $this->form()->openTag($form); ?>
+            
+            <div class="form-group">
+                <?= $this->formLabel($form->get('firstName')); ?>
+                <?= $this->formElement($form->get('firstName')); ?>
+                <?= $this->formElementErrors()->render($form->get('firstName'), ['class' => 'help-block']) ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('lastName')); ?>
+                <?= $this->formElement($form->get('lastName')); ?>
+                <?= $this->formElementErrors()->render($form->get('lastName'), ['class' => 'help-block']) ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('email')); ?>
+                <?= $this->formElement($form->get('email')); ?>
+                <?= $this->formElementErrors()->render($form->get('email'), ['class' => 'help-block']) ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('contact')); ?>
+                <?= $this->formElement($form->get('contact')); ?>
+                <?= $this->formElementErrors()->render($form->get('contact'), ['class' => 'help-block']) ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('gender')); ?>
+                <?= $this->formElement($form->get('gender')); ?>
+                <?= $this->formElementErrors()->render($form->get('gender'), ['class' => 'help-block']) ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('profilePhoto')); ?>
+                <?= $this->formElement($form->get('profilePhoto')); ?>
+                <?= $this->formElementErrors()->render($form->get('profilePhoto'), ['class' => 'help-block']) ?>
+            </div>
+
+            <!-- On edit, If file is not selected then keep older value as it is -->
+            <div class="form-group">
+                <?= $this->formElement($form->get('uploadedFile')); ?>
+            </div>
+
+            <?= $this->formElement($form->get('id')); ?>
+            <?= $this->formElement($form->get('submit')); ?>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>
