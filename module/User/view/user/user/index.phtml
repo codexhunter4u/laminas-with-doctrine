@@ -1,0 +1,63 @@
+<?php
+$gender = constant('User\\Entity\\User::GENDER'); 
+$status = constant('User\\Entity\\User::STATUS');
+?>
+<div class="get-quote">
+    <div class="row">
+        <div class="col-sm-11 col-12">
+            <h5 id="quote">User list</h5>
+        </div>
+        <div class="col-sm-1 col-12">
+            <a href="<?= $this->url('user', ['action' => 'add']) ?>">
+                <button type="button" class="btn btn-outline-primary">Add</button>
+            </a>
+        </div>
+    </div>
+</div>
+<table class="table mt-2">
+    <thead class="thead-dark">
+        <tr>
+            <th>Sr. No</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Contact No</th>
+            <th>Gender</th>
+            <th>Status</th>
+            <th>Profile Photo</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->users as $key => $user): ?>
+            <tr>
+                <td><?= $key+1 ?></td>
+                <td><?= $this->escapeHtml($user->getFirstName()) ?></td>
+                <td><?= $this->escapeHtml($user->getLastName()) ?></td>
+                <td><?= $this->escapeHtml($user->getEmail()) ?></td>
+                <td><?= $this->escapeHtml($user->getContact()) ?></td>
+                <td><?= $this->escapeHtml($gender[$user->getGender()]) ?></td>
+                <td><?= $this->escapeHtml($status[$user->getStatus()]) ?></td>
+                <td>
+                    <img src="<?php echo $this->basePath() . '/img' . '/' . $user->getProfilePhoto(); ?>" class="img-thumbnail" 
+                        alt="blog photos" width="50px;" height="50px;">'
+                </td>
+                <td>
+                    <a href="<?= $this->url('user', ['action' => 'edit', 'id' => $user->getId()]) ?>">
+                        <i class="fa fa-pencil-square primary" style="font-size:24px"></i>
+                    </a>
+                    <a href="<?= $this->url('user', ['action' => 'delete', 'id' => $user->getId()]) ?>">
+                        <i class="fa fa-trash danger" style="font-size:24px"></i>
+                    </a>
+                </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?= $this->paginationControl(
+    $this->users,
+    'sliding',
+    'partial/paginator',
+    ['route' => 'user']
+) ?>
